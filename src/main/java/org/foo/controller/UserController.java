@@ -33,10 +33,15 @@ public class UserController {
     @GetMapping("/update/{username}")
     public String editUser(@PathVariable("username") String username, Model model){
 
-        model.addAttribute("updateUser", userService.findById(username));
+        model.addAttribute("user", userService.findById(username));
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
         return "/user/update";
+    }
+    @PostMapping("/update")
+    public String updateUser(UserDTO userDTO){ // no need for ModelAttribute in this java version
+        userService.update(userDTO);
+        return "redirect:/user/create";
     }
 
 
