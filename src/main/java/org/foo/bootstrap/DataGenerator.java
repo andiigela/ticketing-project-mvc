@@ -1,22 +1,29 @@
 package org.foo.bootstrap;
+import org.foo.dto.ProjectDTO;
 import org.foo.dto.RoleDTO;
 import org.foo.dto.UserDTO;
 import org.foo.enums.Gender;
+import org.foo.enums.Status;
+import org.foo.service.ProjectService;
 import org.foo.service.RoleService;
 import org.foo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class DataGenerator implements CommandLineRunner {
 
     RoleService roleService;
     UserService userService;
+    ProjectService projectService;
     @Autowired
-    public DataGenerator(RoleService roleService, UserService userService) {
+    public DataGenerator(RoleService roleService, UserService userService, ProjectService projectService) {
         this.roleService = roleService;
         this.userService = userService;
+        this.projectService = projectService;
     }
 
     @Override
@@ -60,6 +67,14 @@ public class DataGenerator implements CommandLineRunner {
         userService.save(user6);
         userService.save(user7);
         userService.save(user8);
+
+        ProjectDTO project1 = new ProjectDTO("Spring MVC", "PR001", user1, LocalDate.now(), LocalDate.now().plusDays(25), "Creating Spring MVC Project", Status.OPEN);
+        ProjectDTO project2 = new ProjectDTO("Spring ORM", "PR002", user2, LocalDate.now(), LocalDate.now().plusDays(10), "Creating Spring ORM Project", Status.IN_PROGRESS);
+        ProjectDTO project3 = new ProjectDTO("Spring Container", "PR003", user1, LocalDate.now(), LocalDate.now().plusDays(32), "Creating Spring Container Project", Status.COMPLETE);
+
+        projectService.save(project1);
+        projectService.save(project2);
+        projectService.save(project3);
 
 
     }

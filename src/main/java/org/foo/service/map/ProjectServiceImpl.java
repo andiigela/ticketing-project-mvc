@@ -2,9 +2,10 @@ package org.foo.service.map;
 
 import org.foo.dto.ProjectDTO;
 import org.foo.service.ProjectService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ProjectServiceImpl extends AbstractMapService<ProjectDTO, String> implements ProjectService {
     @Override
     public ProjectDTO save(ProjectDTO object) {
