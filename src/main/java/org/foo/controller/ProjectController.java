@@ -1,6 +1,7 @@
 package org.foo.controller;
 import org.foo.dto.ProjectDTO;
 import org.foo.service.ProjectService;
+import org.foo.service.TaskService;
 import org.foo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
+    private final TaskService taskService;
     ProjectService projectService;
     UserService userService;
     @Autowired
-    public ProjectController(ProjectService projectService, UserService userService) {
+    public ProjectController(ProjectService projectService, UserService userService, TaskService taskService) {
         this.projectService=projectService;
         this.userService=userService;
+        this.taskService = taskService;
     }
 
     @GetMapping("/create")
