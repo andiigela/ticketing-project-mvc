@@ -30,7 +30,7 @@ public class TaskController {
     public String createTask(Model model){
         model.addAttribute("task", new TaskDTO());
         model.addAttribute("projects", projectService.findAll());
-        model.addAttribute("users", userService.findAll());
+        model.addAttribute("users", userService.findEmployees());
         model.addAttribute("tasks", taskService.findAll());
         return "/task/create";
     }
@@ -48,7 +48,7 @@ public class TaskController {
     public String editProject(@PathVariable("taskId") Long taskId, Model model){
         model.addAttribute("task", taskService.findById(taskId));
         model.addAttribute("projects", projectService.findAll());
-        model.addAttribute("users", userService.findAll());
+        model.addAttribute("users", userService.findEmployees());
         model.addAttribute("tasks", taskService.findAll());
         return "/task/update";
     }
