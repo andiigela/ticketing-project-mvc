@@ -1,5 +1,6 @@
 package org.foo.controller;
 import org.foo.dto.ProjectDTO;
+import org.foo.dto.UserDTO;
 import org.foo.service.ProjectService;
 import org.foo.service.TaskService;
 import org.foo.service.UserService;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/project")
@@ -58,6 +61,16 @@ public class ProjectController {
         projectService.update(projectDTO);
         return "redirect:/project/create";
     }
+
+    @GetMapping("/manager/project-status")
+    public String getProjectByManager(Model model){
+        UserDTO manager = userService.findById("john@cydeo.com");
+        List<ProjectDTO> projects = projectService.getCountedListOfProjectDTO(manager);
+
+        model.addAttribute("projects", projects);
+        return "/manager/project-status";
+    }
+
 
 
 }

@@ -1,6 +1,7 @@
 package org.foo.service.map;
 import org.foo.dto.ProjectDTO;
 import org.foo.dto.TaskDTO;
+import org.foo.dto.UserDTO;
 import org.foo.enums.Status;
 import org.foo.service.TaskService;
 import org.springframework.stereotype.Service;
@@ -8,9 +9,17 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl extends AbstractMapService<TaskDTO, Long> implements TaskService {
+    @Override
+    public List<TaskDTO> findTasksByManager(UserDTO manager) {
+        return findAll().stream()
+                .filter(task -> task.getProject().getAssignedManager().equals(manager))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public TaskDTO save(TaskDTO object) {
         if(object.getTaskStatus() == null){
